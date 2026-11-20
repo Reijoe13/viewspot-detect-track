@@ -1,120 +1,38 @@
-# ViewSpot: Real-time Object, Person and Path Detection
+# ViewSpot: Real-time Object and Person Detection
 
-ViewSpot is a browser app that uses your webcam to detect objects and people in real time. It draws boxes and labels on the live video, and it can record footage and take screenshots. The app runs entirely in the browser, so no video is sent to a server.
-
-**Live demo:** https://viewspot.vercel.app/
-
----
+Viewspot is a browser application designed to enhance security and monitoring through real-time object and person detection. It uses the webcam to identify and highlight objects and people within its field of vision.
 
 ## Features
 
-- **Real-time detection:** TensorFlow.js with the COCO-SSD model finds and labels objects and people in each video frame.
-- **Recording:** Start and stop recording manually, or turn on auto-record. Footage is saved to your device.
-- **Screenshots:** Capture the current frame with its detections.
-- **Mirror mode:** Flip the camera view horizontally.
-- **Light and dark mode:** Switch the interface theme from the sidebar.
-- **Sidebar controls:** All settings are in one place.
-- **Path detection (planned):** Track each detected object across frames and show its movement path.
+- Real-time Detection: Utilizes TensorFlow's COCO-SSD model for efficient and accurate object detection.
+- Interactive UI: Features a sidebar with controls for light/dark mode, auto record functionality, and the ability to take screenshots.
+- Dynamic Recording: Offers both manual and automatic recording options, saving footage directly to the camera roll for easy access.
+- Customizable Settings: Users can toggle mirror mode, adjust volume, and manage recording settings through an intuitive interface.
 
-## Tech stack
+## Technologies Used
 
-| Area | Tools |
-|---|---|
-| Framework | Next.js 14 (App Router), React 18, TypeScript |
-| Detection | TensorFlow.js, `@tensorflow-models/coco-ssd` |
-| Video | `react-webcam`, Media Capture and Streams API |
-| UI | Tailwind CSS, shadcn-style components built on Radix UI, Lucide icons, Font Awesome |
-| Theming | `next-themes` |
-| Notifications | `sonner` |
+- Next.JS
+- React
+- TensorFlow.js & COCO-SSD: For real-time object detection and classification directly in the browser.
+- Webcam Integration
+- Custom UI Components
+- State Management: Uses React's useState and useEffect hooks for state management and component lifecycle handling.
+- Media Capture and Streams API
 
-## Project structure
+## Potential Applications
 
-```
-.
-├── app/                 # Next.js pages and layout
-├── components/          # UI components (sidebar, camera view, controls)
-├── lib/                 # Helpers, including the Tailwind class merge utility
-├── public/              # Static files
-├── components.json      # shadcn/ui configuration
-├── next.config.mjs      # Webpack aliases and security headers
-├── tailwind.config.ts   # Tailwind theme and animations
-└── package.json
-```
+- Home Security: Enhance your home's security by integrating Lookout AI as a smart door camera that alerts you to visitors and potential intruders.
+- Office Surveillance: Monitor office spaces for unauthorized access or activity during off-hours.
+- Pet or Baby Monitoring: Keep an eye on pets or babies in different rooms without the need for specialized equipment.
+- Accessibility Tools: Assist individuals with visual impairments by identifying and describing objects within their environment.
 
-## Getting started
+## Deployment
 
-### Requirements
+https://viewspot.vercel.app/
 
-- Node.js 18.18 or newer (Node 20 recommended)
-- npm
-- A webcam, and a browser that supports camera access (Chrome, Edge, or Firefox)
+## Getting Started
 
-### Install
-
-```bash
-git clone <your-repo-url>
-cd viewspot
-npm install
-```
-
-### Run in development
-
-```bash
-npm run dev
-```
-
-Open http://localhost:3000 in your browser and allow camera access when asked.
-
-### Run a production build
-
-```bash
-npm run build
-npm start
-```
-
-`npm start` only works after `npm run build`.
-
-### Lint
-
-```bash
-npm run lint
-```
-
-## How it works
-
-1. The browser asks for camera access. `react-webcam` shows the live video.
-2. COCO-SSD loads in the browser. Its model weights are downloaded at runtime, so no model file needs to be in the repo.
-3. On each frame, the model returns objects with a label, a confidence score, and a bounding box.
-4. The app draws the boxes over the video. Recording and screenshots use the same canvas, so the saved footage includes the detections.
-
-## Configuration notes
-
-- **Security headers:** `next.config.mjs` sets Cross-Origin-Opener-Policy and Cross-Origin-Embedder-Policy headers. These are needed for some of the TensorFlow.js and WebAssembly features. Don't remove them without testing.
-- **ONNX Runtime alias:** `next.config.mjs` maps `onnxruntime-web$` (exact match only) to its bundled file. The exact match matters because `@huggingface/transformers` imports `onnxruntime-web/webgpu`, which a non-exact alias would break.
-- **Large model files:** Files such as `*.onnx`, `*.tflite`, and `*.pt` are in `.gitignore`. Keep model weights out of the repo and load them from a CDN.
-
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| Camera is black or blocked | Allow camera access for localhost in the browser settings. Close other apps that use the webcam. |
-| `npm start` says there is no production build | Run `npm run build` first, or use `npm run dev`. |
-| Detection is slow | Use a smaller browser window, or close other tabs that use the GPU. |
-| Build fails on `onnxruntime-web` | Check that `next.config.mjs` uses the `onnxruntime-web$` alias. |
-
-## Use cases
-
-- **Home security:** Use a spare laptop or phone as a camera that flags visitors.
-- **Office monitoring:** Watch a room for people during off-hours.
-- **Pet or baby monitoring:** Check on a pet or baby from another room.
-- **Accessibility:** Help people with low vision identify objects around them.
-
-## Roadmap
-
-- Path detection: track objects across frames and draw their movement paths
-- Alerts when a chosen object or person appears
-- Adjustable detection threshold in the sidebar
-
-## License
-
-Add your license here, for example MIT.
+To run Lookout AI in your local environment:
+Clone the repository to your local machine.
+Install the necessary dependencies with npm install.
+Start the application with npm start. The app will be available at localhost:3000.
